@@ -4,6 +4,13 @@ import os
 usuarios = []
 contas = []
 
+def decorator_log(funcao):
+    def envelope():
+        funcao()
+        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+        
+    return envelope
+
 def menu():
     i = 0
     while i != 9:
@@ -20,6 +27,7 @@ def menu():
         print("9 - Sair")
         print("==========================")
         
+        i = int(input("Digite Sua Escolha: "))
 
         if i == 1:
             depositar()
@@ -43,6 +51,7 @@ def menu():
             print("Opção inválida!")
             time.sleep(2)
 
+@decorator_log
 def depositar():
     numero_conta = input("Digite o número da conta: ")
     conta_encontrada = None
@@ -62,7 +71,7 @@ def depositar():
         print("Conta não encontrada!")
     time.sleep(3)
 
-
+@decorator_log
 def sacar():
     numero_conta = input("Digite o número da conta: ")
     conta_encontrada = None
@@ -82,7 +91,7 @@ def sacar():
         print("Conta não encontrada!")
     time.sleep(3)
 
-
+@decorator_log
 def transferir():
     origem = input("Digite o número da conta de origem: ")
     destino = input("Digite o número da conta de destino: ")
@@ -109,7 +118,7 @@ def transferir():
         print("Conta de origem ou destino não encontrada!")
     time.sleep(3)
 
-
+@decorator_log
 def cadastrar_usuario():
     cpf = str(input("Insira seu CPF: "))
     usuario_existente = False
@@ -128,7 +137,7 @@ def cadastrar_usuario():
         print("Usuário cadastrado com sucesso!")
         time.sleep(3)
 
-
+@decorator_log
 def remover_usuario():
     cpf = str(input("Insira o CPF do usuário a ser removido: "))
     removido = False
@@ -144,7 +153,7 @@ def remover_usuario():
         print("Usuário não encontrado.")
     time.sleep(3)
 
-
+@decorator_log
 def criar_conta():
     cpf = input("Digite o CPF do usuário dono da conta: ")
     usuario = None
@@ -161,7 +170,7 @@ def criar_conta():
         print("Usuário não encontrado. Cadastre o usuário primeiro.")
     time.sleep(3)
 
-
+@decorator_log
 def remover_conta():
     numero = input("Digite o número da conta a ser removida: ")
     removido = False
@@ -177,7 +186,7 @@ def remover_conta():
         print("Conta não encontrada.")
     time.sleep(3)
 
-
+@decorator_log
 def listar_contas():
     if not contas:
         print("Nenhuma conta cadastrada.")
